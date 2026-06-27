@@ -1,0 +1,454 @@
+/* =========================================================
+   CSS Variables — Paleta Dark Mode
+   ========================================================= */
+:root {
+  --bg-base:        #121212;
+  --bg-card:        #1f1f1f;
+  --bg-card-hover:  #2a2a2a;
+  --accent:         #1DB954;
+  --accent-dim:     #158a3e;
+  --live-red:       #e53935;
+  --live-red-dim:   rgba(229, 57, 53, 0.25);
+  --text-primary:   #f0f0f0;
+  --text-secondary: #9e9e9e;
+  --text-muted:     #5a5a5a;
+  --border:         rgba(255, 255, 255, 0.07);
+  --radius-card:    16px;
+  --radius-btn:     50px;
+  --shadow-card:    0 4px 24px rgba(0, 0, 0, 0.5);
+  --font-display:   'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  --font-body:      'Inter', 'Segoe UI', system-ui, sans-serif;
+  --transition:     0.2s ease;
+}
+
+/* =========================================================
+   Reset
+   ========================================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================================================
+   Fontes via Google Fonts (carregadas no HTML)
+   ========================================================= */
+
+/* =========================================================
+   Layout Principal
+   ========================================================= */
+.app-shell {
+  width: 100%;
+  max-width: 600px;
+  padding: 0 16px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* =========================================================
+   Header
+   ========================================================= */
+.site-header {
+  width: 100%;
+  max-width: 600px;
+  padding: 28px 16px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--accent);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logo-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: #121212;
+}
+
+.site-name {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.site-tagline {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   Seção — Títulos internos
+   ========================================================= */
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* =========================================================
+   Card base
+   ========================================================= */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  transition: background var(--transition);
+}
+
+/* =========================================================
+   Indicador AO VIVO
+   ========================================================= */
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(229, 57, 53, 0.12);
+  border: 1px solid rgba(229, 57, 53, 0.3);
+  border-radius: var(--radius-btn);
+  padding: 4px 12px 4px 8px;
+  margin-bottom: 16px;
+}
+
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--live-red);
+  position: relative;
+  flex-shrink: 0;
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 var(--live-red-dim);
+    background: var(--live-red);
+  }
+  50% {
+    box-shadow: 0 0 0 8px transparent;
+    background: #ff5252;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+    background: var(--live-red);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot {
+    animation: none;
+  }
+}
+
+.live-text {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--live-red);
+}
+
+/* =========================================================
+   Seção de Transmissão
+   ========================================================= */
+.broadcast-card .broadcast-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+
+.broadcast-card .broadcast-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.audio-player-wrapper {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+}
+
+.audio-player-wrapper audio {
+  width: 100%;
+  height: 40px;
+  outline: none;
+  border-radius: 6px;
+  accent-color: var(--accent);
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: #1f1f1f;
+}
+
+.stream-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.stream-info svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  fill: var(--text-muted);
+}
+
+/* =========================================================
+   Seção Musical — Spotify
+   ========================================================= */
+.music-card .music-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.spotify-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(29, 185, 84, 0.1);
+  border: 1px solid rgba(29, 185, 84, 0.25);
+  border-radius: var(--radius-btn);
+  padding: 3px 10px 3px 7px;
+}
+
+.spotify-badge svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--accent);
+}
+
+.spotify-badge span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.music-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.music-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+/* Container responsivo para o iframe do Spotify */
+.iframe-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+}
+
+.iframe-wrapper iframe {
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+}
+
+.copyright-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.copyright-notice svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  fill: var(--text-muted);
+  margin-top: 2px;
+}
+
+.copyright-notice p {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.site-footer {
+  width: 100%;
+  max-width: 600px;
+  padding: 0 16px 8px;
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.site-footer a {
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.site-footer a:hover {
+  color: var(--text-secondary);
+}
+
+/* =========================================================
+   Botão instalar PWA
+   ========================================================= */
+#install-btn {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: var(--accent);
+  color: #121212;
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 13px 24px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  justify-content: center;
+}
+
+#install-btn:hover {
+  background: var(--accent-dim);
+  transform: translateY(-1px);
+}
+
+#install-btn:active {
+  transform: translateY(0);
+}
+
+#install-btn.visible {
+  display: flex;
+}
+
+#install-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: #121212;
+}
+
+/* =========================================================
+   Divisor decorativo
+   ========================================================= */
+.divider {
+  height: 1px;
+  background: var(--border);
+  border: none;
+  border-radius: 1px;
+}
+
+/* =========================================================
+   Media Queries
+   ========================================================= */
+@media (max-width: 480px) {
+  .site-name {
+    font-size: 1.7rem;
+  }
+
+  .broadcast-card .broadcast-title,
+  .music-title {
+    font-size: 1.3rem;
+  }
+
+  .card {
+    padding: 18px;
+  }
+}
+
+@media (min-width: 601px) {
+  .app-shell {
+    padding: 0 0 40px;
+  }
+}
+
+/* ── Monitor de conexão do stream ── */
+.stream-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.82rem;
+  color: #aaa;
+  border-left: 3px solid #555;
+  transition: border-color 0.3s;
+}

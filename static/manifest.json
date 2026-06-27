@@ -1,0 +1,26 @@
+{
+  "name": "ZMART Radio Brasil",
+  "short_name": "ZMART Radio",
+  "description": "O som inteligente da internet que une jornalismo dinâmico ao vivo e a melhor curadoria musical para a sua rotina.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#121212",
+  "theme_color": "#1f1f1f",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/static/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
