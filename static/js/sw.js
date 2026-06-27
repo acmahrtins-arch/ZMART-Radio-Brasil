@@ -1,11 +1,9 @@
-const CACHE_VERSION = "zmart-radio-v1";
+const CACHE_VERSION = "zmart-radio-v2";
 
-// Domínios que nunca devem ser cacheados (streams ao vivo e players externos)
 const CACHE_BYPASS_PATTERNS = [
   "spotify.com",
   "fonts.googleapis.com",
   "fonts.gstatic.com",
-  "streaming.caster.fm",
   "caster.fm",
 ];
 
@@ -44,20 +42,19 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Streams de áudio: sempre network-first, sem cache
   const isAudioStream =
     event.request.headers.get("Accept")?.includes("audio") ||
     url.pathname.endsWith(".mp3") ||
     url.pathname.endsWith(".m3u8") ||
     url.pathname.includes("/listen/") ||
-    url.pathname.includes("/stream");
+    url.pathname.includes("/o8QS8");
 
   if (isAudioStream) {
     event.respondWith(fetch(event.request));
     return;
   }
 
-  // App shell: cache-first
+  // App shell: cache-first com clone correto
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) return cached;
@@ -65,8 +62,9 @@ self.addEventListener("fetch", (event) => {
         if (!response || response.status !== 200 || response.type === "opaque") {
           return response;
         }
+        const responseClone = response.clone();
         caches.open(CACHE_VERSION).then((cache) => {
-          cache.put(event.request, response.clone());
+          cache.put(event.request, responseClone);
         });
         return response;
       });
