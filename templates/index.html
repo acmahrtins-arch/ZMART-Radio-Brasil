@@ -71,22 +71,16 @@
       <p class="broadcast-subtitle">Jornalismo dinâmico ao vivo via Caster.fm</p>
 
       <div class="audio-player-wrapper">
-        <audio
-          id="live-player"
-          controls
-          preload="none"
+        <iframe
+          id="caster-player"
+          src="https://player.caster.fm/102aa668-ce8a-49dc-8249-e2a7c379e02f"
+          width="100%"
+          height="180"
+          frameborder="0"
+          allow="autoplay"
           aria-label="Player de rádio ao vivo ZMART Radio Brasil"
-        >
-          <!-- Stream principal Caster.fm -->
-          <source id="src-icecast" src="https://streaming.caster.fm/102aa668-ce8a-49dc-8249-e2a7c379e02f/stream" type="audio/mpeg" />
-          Seu navegador não suporta a reprodução de áudio HTML5.
-        </audio>
-      </div>
-
-      <!-- Indicador de qualidade / status de conexão -->
-      <div id="stream-status" class="stream-status-bar" aria-live="polite" hidden>
-        <span id="stream-status-icon">⚡</span>
-        <span id="stream-status-msg">Conectando…</span>
+          style="border-radius: 12px; overflow: hidden;"
+        ></iframe>
       </div>
 
       <div class="stream-info" aria-label="Informação sobre o stream">
