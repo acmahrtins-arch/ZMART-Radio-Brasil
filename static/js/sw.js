@@ -1,10 +1,13 @@
-const CACHE_VERSION = "zmart-radio-v2";
+const CACHE_VERSION = "zmart-radio-v3";
 
 const CACHE_BYPASS_PATTERNS = [
   "spotify.com",
   "fonts.googleapis.com",
   "fonts.gstatic.com",
   "caster.fm",
+  "sentry.io",
+  "quillbot",
+  "locize.com",
 ];
 
 const APP_SHELL_ASSETS = [
@@ -34,40 +37,50 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
+  // Só intercepta GET
+  if (event.request.method !== "GET") return;
+
   const url = new URL(event.request.url);
 
+  // Bypass: domínios externos, streams, extensões de browser
   const isBypass = CACHE_BYPASS_PATTERNS.some((p) => url.hostname.includes(p));
-  if (isBypass || event.request.method !== "GET") {
-    event.respondWith(fetch(event.request));
-    return;
-  }
+  if (isBypass) return; // deixa o browser tratar diretamente
 
-  const isAudioStream =
-    event.request.headers.get("Accept")?.includes("audio") ||
+  // Bypass: extensões de browser (chrome-extension, moz-extension, etc)
+  if (!url.protocol.startsWith("http")) return;
+
+  // Bypass: streams de áudio
+  const isAudio =
     url.pathname.endsWith(".mp3") ||
     url.pathname.endsWith(".m3u8") ||
+    url.pathname.includes("/o8QS8") ||
     url.pathname.includes("/listen/") ||
-    url.pathname.includes("/o8QS8");
-
-  if (isAudioStream) {
-    event.respondWith(fetch(event.request));
-    return;
-  }
+    url.pathname.includes("/stream");
+  if (isAudio) return;
 
   // App shell: cache-first com clone correto
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) return cached;
+
       return fetch(event.request).then((response) => {
-        if (!response || response.status !== 200 || response.type === "opaque") {
+        // Só cacheia respostas válidas e do mesmo origin
+        if (
+          !response ||
+          response.status !== 200 ||
+          response.type !== "basic"
+        ) {
           return response;
         }
-        const responseClone = response.clone();
+
+        // Clona ANTES de usar
+        const toCache = response.clone();
         caches.open(CACHE_VERSION).then((cache) => {
-          cache.put(event.request, responseClone);
+          cache.put(event.request, toCache);
         });
+
         return response;
-      });
-    }).catch(() => caches.match("/"))
+      }).catch(() => caches.match("/"));
+    })
   );
 });
