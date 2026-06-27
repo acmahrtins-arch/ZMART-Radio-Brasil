@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ZMART Radio Brasil — Ao Vivo</title>
+  <meta name="description" content="O som inteligente da internet que une jornalismo dinâmico ao vivo e a melhor curadoria musical para a sua rotina. Dê o play!" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1f1f1f" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ZMART Radio" />
+  <link rel="apple-touch-icon" href="/static/icons/icon-192.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ZMART Radio Brasil — O Som Inteligente da Internet" />
+  <meta property="og:description" content="Jornalismo dinâmico ao vivo e curadoria musical premium. 24h por dia." />
+  <meta property="og:image" content="/static/icons/icon-512.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <style>
+    .radio-btn-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 24px 0 8px;
+    }
+    .radio-play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #6C2BDD, #a855f7);
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 24px rgba(108,43,221,0.4);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .radio-play-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(108,43,221,0.55);
+    }
+    .radio-play-btn svg {
+      width: 28px;
+      height: 28px;
+      fill: #fff;
+    }
+    .radio-btn-note {
+      font-size: 0.8rem;
+      color: #888;
+      text-align: center;
+    }
+    .media-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .media-tab {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #2a2a2a;
+      color: #aaa;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .media-tab.active {
+      background: #6C2BDD;
+      color: #fff;
+    }
+    .media-tab svg { width: 18px; height: 18px; fill: currentColor; }
+    .media-panel { display: none; }
+    .media-panel.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-logo">
+      <div class="logo-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12a9 9 0 0 1 9-9zm0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7zm0 3a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4zm0 2a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2z"/>
+        </svg>
+      </div>
+      <span class="site-name">ZMART Radio Brasil</span>
+    </div>
+    <p class="site-tagline">O Som Inteligente da Internet · 24h</p>
+  </header>
+
+  <main class="app-shell" role="main">
+
+    <button id="install-btn" aria-label="Instalar aplicativo na tela inicial">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M5 20h14v-2H5v2zm7-18l-5 5h3v6h4v-6h3l-5-5z"/>
+      </svg>
+      Instalar app na tela inicial
+    </button>
+
+    <!-- ══════════════════════════════
+         SEÇÃO 1: Transmissão Ao Vivo
+    ══════════════════════════════ -->
+    <section class="card broadcast-card" aria-labelledby="broadcast-heading">
+      <p class="section-label">Transmissão</p>
+
+      <div class="live-badge" role="status" aria-live="polite">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <span class="live-text">Ao Vivo</span>
+      </div>
+
+      <h1 class="broadcast-title" id="broadcast-heading">Talk Show &amp; Notícias</h1>
+      <p class="broadcast-subtitle">Jornalismo dinâmico ao vivo · ZMART Radio Brasil</p>
+
+      <div class="radio-btn-wrapper">
+        <a
+          href="https://zmartbr.ismyradio.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="radio-play-btn"
+          aria-label="Abrir player da ZMART Radio Brasil"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          Ouvir Ao Vivo
+        </a>
+        <p class="radio-btn-note">🎙️ Abre o player oficial da rádio em nova aba</p>
+      </div>
+
+      <div class="stream-info" aria-label="Informação sobre o stream">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+        </svg>
+        <span>Stream via Caster.fm · Gratuito · Até 400 ouvintes simultâneos</span>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- ══════════════════════════════
+         SEÇÃO 2: Música Sob Demanda
+    ══════════════════════════════ -->
+    <section class="card music-card" aria-labelledby="music-heading">
+      <p class="section-label">Música Sob Demanda</p>
+      <h2 class="music-title" id="music-heading">Nossa Curadoria Musical</h2>
+      <p class="music-subtitle">Escolha sua plataforma favorita para ouvir nossa seleção.</p>
+
+      <!-- Abas Spotify / YouTube -->
+      <div class="media-tabs" role="tablist">
+        <button class="media-tab active" id="tab-spotify" role="tab" aria-selected="true" aria-controls="panel-spotify" onclick="switchTab('spotify')">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          Spotify
+        </button>
+        <button class="media-tab" id="tab-youtube" role="tab" aria-selected="false" aria-controls="panel-youtube" onclick="switchTab('youtube')">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube
+        </button>
+      </div>
+
+      <!-- Painel Spotify -->
+      <div class="media-panel active" id="panel-spotify" role="tabpanel" aria-labelledby="tab-spotify">
+        <div class="iframe-wrapper">
+          <iframe
+            title="Playlist ZMART Radio Brasil — Spotify"
+            src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0"
+            width="100%"
+            height="380"
+            frameborder="0"
+            allowtransparency="true"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+          ></iframe>
+        </div>
+        <div class="copyright-notice" role="note">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+          <p>Reprodução licenciada pelo player do Spotify, plataforma detentora das licenças junto ao ECAD. Esta aplicação não retransmite nem armazena conteúdo musical (Lei nº 9.610/98, Art. 29).</p>
+        </div>
+      </div>
+
+      <!-- Painel YouTube -->
+      <div class="media-panel" id="panel-youtube" role="tabpanel" aria-labelledby="tab-youtube">
+        <div class="iframe-wrapper">
+          <iframe
+            title="Playlist ZMART Radio Brasil — YouTube"
+            src="https://www.youtube.com/embed/videoseries?list=PLIdEnrLbpKWqjNABCHwoovk-1L8LroGjr&autoplay=0"
+            width="100%"
+            height="380"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+        <div class="copyright-notice" role="note">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-6h2v6zm0-8h-2v-2h2v2z"/></svg>
+          <p>Reprodução via player oficial do YouTube. Os direitos autorais são gerenciados pela plataforma e pelos detentores dos conteúdos. Esta aplicação não retransmite nem armazena vídeos (Lei nº 9.610/98, Art. 29).</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      © <span id="current-year"></span> ZMART Radio Brasil &middot;
+      Transmissão independente &middot;
+      <a href="https://zmartbr.ismyradio.com" target="_blank" rel="noopener noreferrer">Ouvir ao vivo</a>
+    </p>
+    <p style="margin-top:4px;">
+      Streaming via <a href="https://www.caster.fm" target="_blank" rel="noopener noreferrer">Caster.fm</a>
+      · Música via <a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer">Spotify</a>
+      &amp; <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a>
+    </p>
+  </footer>
+
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/sw.js', { scope: '/' })
+        .then(reg => console.log('[SW] Registrado. Escopo:', reg.scope))
+        .catch(err => console.error('[SW] Falha:', err));
+    }
+
+    (function () {
+      var deferredPrompt = null;
+      var installBtn = document.getElementById('install-btn');
+      window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.classList.add('visible');
+      });
+      installBtn.addEventListener('click', function () {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(function () {
+          deferredPrompt = null;
+          installBtn.classList.remove('visible');
+        });
+      });
+      window.addEventListener('appinstalled', function () {
+        installBtn.classList.remove('visible');
+      });
+    })();
+
+    function switchTab(tab) {
+      document.querySelectorAll('.media-tab').forEach(function(t) {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.media-panel').forEach(function(p) {
+        p.classList.remove('active');
+      });
+      document.getElementById('tab-' + tab).classList.add('active');
+      document.getElementById('tab-' + tab).setAttribute('aria-selected', 'true');
+      document.getElementById('panel-' + tab).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
