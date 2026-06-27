@@ -2,9 +2,9 @@
    CSS Variables — Paleta Dark Mode
    ========================================================= */
 :root {
-  --bg-base:        #131A33;
-  --bg-card:        #19203E;
-  --bg-card-hover:  #232B52;
+  --bg-base:        #121212;
+  --bg-card:        #1f1f1f;
+  --bg-card-hover:  #2a2a2a;
   --accent:         #1DB954;
   --accent-dim:     #158a3e;
   --live-red:       #e53935;
@@ -229,7 +229,7 @@ body {
 }
 
 audio::-webkit-media-controls-panel {
-  background-color: var(--bg-card);
+  background-color: #1f1f1f;
 }
 
 .stream-info {
